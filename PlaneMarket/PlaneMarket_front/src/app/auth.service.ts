@@ -9,6 +9,7 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<string | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
+
   constructor(private api: ApiService) {
     const token = this.getAccessToken();
     if (token) {

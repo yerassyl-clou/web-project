@@ -28,27 +28,27 @@ export class ApiService {
 
   // Производители
   getManufacturers(): Observable<Manufacturer[]> {
-    return this.http.get<Manufacturer[]>(`${this.baseUrl}/api/manuafacturers/`);
+    return this.http.get<Manufacturer[]>(`${this.baseUrl}/api/manufacturers/`);
   }
 
   getManufacturer(id: number): Observable<Manufacturer> {
-    return this.http.get<Manufacturer>(`${this.baseUrl}/api/manuafacturers/${id}/`);
+    return this.http.get<Manufacturer>(`${this.baseUrl}/api/manufacturers/${id}/`);
   }
 
   createManufacturer(data: Partial<Manufacturer>): Observable<Manufacturer> {
-    return this.http.post<Manufacturer>(`${this.baseUrl}/api/manuafacturers/`, data);
+    return this.http.post<Manufacturer>(`${this.baseUrl}/api/manufacturers/`, data);
   }
 
   updateManufacturer(id: number, data: Partial<Manufacturer>): Observable<Manufacturer> {
-    return this.http.put<Manufacturer>(`${this.baseUrl}/api/manuafacturers/${id}/`, data);
+    return this.http.put<Manufacturer>(`${this.baseUrl}/api/manufacturers/${id}/`, data);
   }
 
   deleteManufacturer(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/api/manuafacturers/${id}/`);
+    return this.http.delete(`${this.baseUrl}/api/manufacturers/${id}/`);
   }
 
   getPlanesByManufacturer(id: number): Observable<Plane[]> {
-    return this.http.get<Plane[]>(`${this.baseUrl}/api/manuafacturers/${id}/planes/`);
+    return this.http.get<Plane[]>(`${this.baseUrl}/api/manufacturers/${id}/planes/`);
   }
 
   // Самолеты
