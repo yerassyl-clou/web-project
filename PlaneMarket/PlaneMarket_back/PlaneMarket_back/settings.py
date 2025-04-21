@@ -79,16 +79,25 @@ TEMPLATES = [
 WSGI_APPLICATION = 'PlaneMarket_back.wsgi.application'
 
 # Database settings for PostgreSQL
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'web_project',
+#         'USER': 'user1',
+#         'PASSWORD': 'user123',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'web_project',
-        'USER': 'user1',
-        'PASSWORD': 'user123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

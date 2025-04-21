@@ -29,15 +29,15 @@ urlpatterns = [
     path('orders/create/', create_order_for_authenticated_user),
 
     # Логин: получение пары токенов JWT
-    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     
     # Обновление токенов JWT
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
     # Логаут: аннулирование refresh токена
-    path('api/logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     
     # Информация о текущем пользователе
-    path('api/current_user/', CurrentUserView.as_view(), name='current_user'),
+    path('current_user/', CurrentUserView.as_view(), name='current_user'),
 ]
 
