@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   selector: 'app-manufacturers',
   templateUrl: 'manufacturers.component.html',
   standalone: true,
+  styleUrls: ['manufacturers.component.css'],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, ReactiveFormsModule],
 })
 export class ManufacturersComponent implements OnInit {

@@ -5,17 +5,15 @@ import { ManufacturersComponent } from './manufacturers/manufacturers.component'
 import { PlanesComponent } from './planes/planes.component';
 import { OrdersComponent } from './orders/orders.component';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
-    { path: '', component: PlanesComponent },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'manufacturers', component: ManufacturersComponent },
     { path: 'planes', component: PlanesComponent },
     { path: 'orders', component: OrdersComponent },
+    { path: 'home', component: HomeComponent },
 ];
 
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule],
-})
 export class AppRoutingModule {}

@@ -12,6 +12,7 @@ export interface Plane {
     description: string;
     price: number;
     manufacturer: Manufacturer;
+    image_url?: string | null;
 }
 
 export interface Customer {

@@ -1,6 +1,7 @@
 <h2>Manufacturers</h2>
-<ul>
-  <li *ngFor="let manufacturer of manufacturers">
-    {{ manufacturer.name }} - {{ manufacturer.headquarters_city }}
-  </li>
-</ul>
+<div class="manufacturer-list">
+  <div class="manufacturer-card" *ngFor="let manufacturer of manufacturers">
+    <h3>{{ manufacturer.name }}</h3>
+    <p><strong>Headquarters:</strong> {{ manufacturer.headquarters_city }}</p>
+  </div>
+</div>
