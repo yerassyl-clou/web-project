@@ -14,7 +14,7 @@ export class AuthService {
     if (token) {
       this.api.getCurrentUser().subscribe({
         next: (user) => this.currentUserSubject.next(user.username),
-        error: () => this.logout(),
+        error: () => { /* Removed logout here */ },
       });
     }
   }
@@ -43,8 +43,8 @@ export class AuthService {
     if (refresh) {
       this.api.logout(refresh).subscribe();
     }
-    this.clearTokens();
-    this.currentUserSubject.next(null);
+    this.clearTokens();  // Clears tokens when user logs out
+    this.currentUserSubject.next(null);  // Updates user state
   }
 
   isAuthenticated(): boolean {
@@ -60,6 +60,8 @@ export class AuthService {
   }
 
   private setTokens(access: string, refresh: string): void {
+    console.log('[AuthService] Saving access token:', access);
+    console.log('[AuthService] Saving refresh token:', refresh);
     localStorage.setItem(this.accessTokenKey, access);
     localStorage.setItem(this.refreshTokenKey, refresh);
   }
