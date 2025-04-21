@@ -12,7 +12,7 @@ from .views import (
     create_order_for_authenticated_user,
     CustomTokenObtainPairView,  # Добавляем сюда логин
     LogoutView,  # Добавляем сюда логаут
-    CurrentUserView  # Добавляем для получения информации о текущем пользователе
+    CurrentUserView, my_orders  # Добавляем для получения информации о текущем пользователе
 )
 
 urlpatterns = [
@@ -27,6 +27,7 @@ urlpatterns = [
 
     path('customers/<int:id>/orders', customer_orders),
     path('orders/create/', create_order_for_authenticated_user),
+    path('orders/my/', my_orders),
 
     # Логин: получение пары токенов JWT
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),

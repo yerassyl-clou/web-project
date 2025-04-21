@@ -25,3 +25,17 @@
 .order-card strong {
   color: #333;
 }
+
+.order-plane {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.plane-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
+}

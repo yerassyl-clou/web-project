@@ -88,4 +88,8 @@ export class ApiService {
   createOrderForUser(planeId: number): Observable<Order> {
     return this.http.post<Order>(`${this.baseUrl}/api/orders/create/`, { plane: planeId });
   }
+
+  getMyOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(`${this.baseUrl}/api/orders/my/`);
+  }
 }

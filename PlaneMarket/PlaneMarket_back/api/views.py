@@ -187,6 +187,19 @@ def customer_orders(request, id):
 
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def my_orders(request):
+    customer = getattr(request.user, 'customer', None)
+    if not customer:
+        return Response({"detail": "No linked customer profile found."}, status=status.HTTP_400_BAD_REQUEST)
+
+    orders = Order.objects.filter(customer=customer)
+    serializer = OrderSerializer(orders, many=True)
+    return Response(serializer.data)
+
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_order_for_authenticated_user(request):

@@ -33,14 +33,25 @@ class PlaneSerializer(serializers.Serializer):
 class OrderSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     customer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all())
-    plane = serializers.PrimaryKeyRelatedField(queryset=Plane.objects.all())
-    order_date = serializers.DateField()
+
+    # READ: Send full plane object
+    plane = PlaneSerializer(read_only=True)
+
+    # WRITE: Accept a plane_id when creating/updating
+    plane_id = serializers.PrimaryKeyRelatedField(
+        queryset=Plane.objects.all(),
+        source='plane',
+        write_only=True
+    )
+
+    order_date = serializers.DateTimeField(read_only=True)
     status = serializers.CharField()
 
     def create(self, validated_data):
         return Order.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
+        # You can implement update logic if needed
         pass
 
 # Customer Serializer

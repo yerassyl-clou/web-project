@@ -17,6 +17,6 @@ export class OrdersComponent implements OnInit {
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
-    this.api.getCustomerOrders(1).subscribe((data) => (this.orders = data));
+    this.api.getMyOrders().subscribe((data) => (this.orders = data));
   }
 }

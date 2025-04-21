@@ -25,7 +25,7 @@ export interface Customer {
 export interface Order {
     id: number;
     customer: number;
-    plane: number;
+    plane: Plane;
     order_date: string;
     status: 'pending' | 'shipped' | 'delivered';
 }

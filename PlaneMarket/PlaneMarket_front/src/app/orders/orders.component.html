@@ -2,7 +2,10 @@
 <div class="orders-list">
   <div class="order-card" *ngFor="let order of orders">
     <p><strong>Order ID:</strong> {{ order.id }}</p>
-    <p><strong>Plane ID:</strong> {{ order.plane }}</p>
+    <div class="order-plane">
+      <img *ngIf="order.plane.image_url" [src]="order.plane.image_url" alt="{{ order.plane.name }}" class="plane-image" />
+      <p><strong>Plane:</strong> {{ order.plane.name }} {{ order.plane.manufacturer.name }}</p>
+    </div>
     <p><strong>Status:</strong> {{ order.status }}</p>
   </div>
 </div>

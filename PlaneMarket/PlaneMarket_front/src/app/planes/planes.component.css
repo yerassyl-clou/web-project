@@ -24,8 +24,9 @@
 
 .plane-image {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 100%;  /* Set height to fully match the card's height */
+  object-fit: contain;  /* Ensure the entire image is visible */
+  object-position: center;  /* Center the image within its container */
 }
 
 .plane-details {
