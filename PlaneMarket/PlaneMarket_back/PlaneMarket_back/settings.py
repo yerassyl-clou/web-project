@@ -127,8 +127,8 @@ REST_FRAMEWORK = {
 
 # JWT settings
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Время жизни access токена
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Время жизни refresh токена
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),  # Время жизни access токена
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),  # Время жизни refresh токена
     'ROTATE_REFRESH_TOKENS': False,  # Не обновлять refresh токен
     'BLACKLIST_AFTER_ROTATION': True,  # Добавить refresh токен в черный список после его обновления
     'ALGORITHM': 'HS256',  # Алгоритм для подписи
