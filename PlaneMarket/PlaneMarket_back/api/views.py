@@ -15,6 +15,8 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     # Этот класс можно кастомизировать, если нужно
     pass
 
+
+
 # Логаут — аннулирование refresh токена
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
@@ -35,6 +37,7 @@ class LogoutView(APIView):
 
 
 class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         # Возвращаем информацию о текущем аутентифицированном пользователе
@@ -43,7 +46,8 @@ class CurrentUserView(APIView):
             'username': request.user.username,
         }
         return Response(user_data)
-    
+
+
     
 @api_view(['GET', 'POST'])
 def manufacturers_list(request):
@@ -63,8 +67,9 @@ def manufacturers_list(request):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
 @api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
 def manufacturer_detail(request, id):
     manufacturer = Manufacturer.objects.get(id=id)
 
@@ -89,8 +94,9 @@ def manufacturer_detail(request, id):
         manufacturer.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
 def planes_by_manufacturer(request, id):
     planes = Plane.objects.filter(manufacturer_id=id)
     if not planes:
@@ -99,8 +105,8 @@ def planes_by_manufacturer(request, id):
     return Response(serializer.data)
 
 
+
 class PlaneListAPIView(APIView):
-    #permission_classes = [IsAuthenticated]
 
     def get(self, request):
         planes = Plane.objects.all()
@@ -118,8 +124,8 @@ class PlaneListAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 class PlaneDetailAPIView(APIView):
-    #permission_classes = [IsAuthenticated]
 
     def get(self, request, id):
         plane = get_object_or_404(Plane, id=id)
@@ -146,6 +152,7 @@ class PlaneDetailAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+
 class TopTenPlaneListAPIView(APIView):
     # permission_classes = [IsAuthenticated]
 
@@ -158,28 +165,15 @@ class TopTenPlaneListAPIView(APIView):
         return Response(serializer.data)
 
 
-class PlaneViewSet(viewsets.ModelViewSet):
-    #permission_classes = [IsAuthenticated]
-
-    serializer_class = PlaneSerializer
-    queryset = Plane.objects.all()
-
-    def perform_create(self, serializer):
-        manufacturer = getattr(self.request.user, 'manufacturer', None)
-        if manufacturer:
-            serializer.save(manufacturer=manufacturer)
-        else:
-            serializer.save()
-
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
 def orders_by_plane(request, id):
     orders = Order.objects.filter(plane_id=id)
     if not orders:
         return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data)
+
 
 
 @api_view(['GET'])
@@ -190,6 +184,7 @@ def customer_orders(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data)
+
 
 
 @api_view(['POST'])
