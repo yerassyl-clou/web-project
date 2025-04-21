@@ -184,22 +184,22 @@ def create_order_for_authenticated_user(request):
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-# new endpoint
-
-# Логин — получение JWT токенов
-class CustomTokenObtainPairView(TokenObtainPairView):
-    pass
-
-# Логаут — аннулирование refresh токена
-class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        try:
-            # Получаем refresh токен из данных запроса
-            refresh_token = request.data.get('refresh_token')
-            token = RefreshToken(refresh_token)
-            token.blacklist()  # Добавляем в черный список, чтобы токен больше не был действителен
-            return Response({"detail": "Logged out successfully"}, status=200)
-        except Exception as e:
-            return Response({"error": "Something went wrong"}, status=400)
+# # new endpoint
+#
+# # Логин — получение JWT токенов
+# class CustomTokenObtainPairView(TokenObtainPairView):
+#     pass
+#
+# # Логаут — аннулирование refresh токена
+# class LogoutView(APIView):
+#     permission_classes = [IsAuthenticated]
+#
+#     def post(self, request):
+#         try:
+#             # Получаем refresh токен из данных запроса
+#             refresh_token = request.data.get('refresh_token')
+#             token = RefreshToken(refresh_token)
+#             token.blacklist()  # Добавляем в черный список, чтобы токен больше не был действителен
+#             return Response({"detail": "Logged out successfully"}, status=200)
+#         except Exception as e:
+#             return Response({"error": "Something went wrong"}, status=400)

@@ -16,9 +16,9 @@ from .views import (
 )
 
 urlpatterns = [
-    path('manuafacturers/', manufacturers_list),
-    path('manuafacturers/<int:id>/', manufacturer_detail),
-    path('manuafacturers/<int:id>/planes/', planes_by_manufacturer),
+    path('manufacturers/', manufacturers_list),
+    path('manufacturers/<int:id>/', manufacturer_detail),
+    path('manufacturers/<int:id>/planes/', planes_by_manufacturer),
 
     path('planes/', PlaneListAPIView.as_view()),
     path('planes/<int:id>/', PlaneDetailAPIView.as_view()),
