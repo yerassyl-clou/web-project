@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta  # Импортируем timedelta для установки времени жизни токенов
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -27,9 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api',
-
+    'rest_framework_simplejwt.token_blacklist',  # Для работы с JWT и черным списком токенов
     'corsheaders',
 ]
 
@@ -80,10 +78,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'PlaneMarket_back.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+# Database settings for PostgreSQL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -95,10 +90,7 @@ DATABASES = {
     }
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -114,31 +106,37 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+# REST Framework settings for JWT
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Для аутентификации через JWT
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',  # Разрешение для работы с защищенными эндпоинтами
+    ),
 }
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
+# JWT settings
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Время жизни access токена
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Время жизни refresh токена
+    'ROTATE_REFRESH_TOKENS': False,  # Не обновлять refresh токен
+    'BLACKLIST_AFTER_ROTATION': True,  # Добавить refresh токен в черный список после его обновления
+    'ALGORITHM': 'HS256',  # Алгоритм для подписи
+    'SIGNING_KEY': SECRET_KEY,  # Секретный ключ для подписи токенов
+    'AUTH_HEADER_TYPES': ('Bearer',),  # Тип заголовка для авторизации
+    'USER_ID_FIELD': 'id',  # Используем поле id пользователя в токене
+    'USER_ID_CLAIM': 'user_id',  # Имя для поля ID пользователя в payload
+}
 
+# Internationalization settings
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = 'static/'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

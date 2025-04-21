@@ -1,5 +1,5 @@
+from rest_framework_simplejwt.views import TokenRefreshView
 from django.urls import path
-
 from .views import (
     manufacturers_list,
     manufacturer_detail,
@@ -10,7 +10,9 @@ from .views import (
     orders_by_plane,
     customer_orders,
     create_order_for_authenticated_user,
-    
+    CustomTokenObtainPairView,  # Добавляем сюда логин
+    LogoutView,  # Добавляем сюда логаут
+    CurrentUserView  # Добавляем для получения информации о текущем пользователе
 )
 
 urlpatterns = [
@@ -26,8 +28,16 @@ urlpatterns = [
     path('customers/<int:id>/orders', customer_orders),
     path('orders/create/', create_order_for_authenticated_user),
 
-    #path('orders/<int:id>/', OrderDetailAPIView.as_view()),
-
-    #path('login/'),                                             #TO_DO
-    #path('logout/')                                             #TO_DO
+    # Логин: получение пары токенов JWT
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    
+    # Обновление токенов JWT
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
+    # Логаут: аннулирование refresh токена
+    path('api/logout/', LogoutView.as_view(), name='logout'),
+    
+    # Информация о текущем пользователе
+    path('api/current_user/', CurrentUserView.as_view(), name='current_user'),
 ]
+

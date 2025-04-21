@@ -4,10 +4,45 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Manufacturer, Plane, Customer, Order
 from .serializers import ManufacturerSerializer, PlaneSerializer, OrderSerializer, CustomerSerializer
 
 
+# Логин — получение JWT токенов
+class CustomTokenObtainPairView(TokenObtainPairView):
+    # Этот класс можно кастомизировать, если нужно
+    pass
+
+# Логаут — аннулирование refresh токена
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            # getting refresh token from data request
+            refresh_token = request.data.get('refresh_token')
+            token = RefreshToken(refresh_token)
+            token.blacklist()  # adding to blacklist, so token will not work
+            return Response({"detail": "Logged out successfully"}, status=200)
+        except Exception as e:
+            return Response({"error": "Something went wrong"}, status=400)
+
+
+
+class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Возвращаем информацию о текущем аутентифицированном пользователе
+        user_data = {
+            'email': request.user.email,
+            'username': request.user.username,
+        }
+        return Response(user_data)
+    
+    
 @api_view(['GET', 'POST'])
 def manufacturers_list(request):
     if request.method == 'GET':
@@ -48,7 +83,6 @@ def planes_by_manufacturer(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = PlaneSerializer(planes, many=True)
     return Response(serializer.data)
-
 
 
 class PlaneListAPIView(APIView):
@@ -149,13 +183,23 @@ def create_order_for_authenticated_user(request):
     serializer = OrderSerializer(order)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-#TODO
-#Надо сделать одну функцию def create_order_for_authenticated_user + login/logout jwt
 
-#class MyTokenObtainPairView(TokenObtainPairView):
+# new endpoint
 
-# @api_view(['POST'])
-# def create_order_for_authenticated_user(request):
+# Логин — получение JWT токенов
+class CustomTokenObtainPairView(TokenObtainPairView):
+    pass
 
-# @api_view(['POST'])
-# def logout_view(request):
+# Логаут — аннулирование refresh токена
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            # Получаем refresh токен из данных запроса
+            refresh_token = request.data.get('refresh_token')
+            token = RefreshToken(refresh_token)
+            token.blacklist()  # Добавляем в черный список, чтобы токен больше не был действителен
+            return Response({"detail": "Logged out successfully"}, status=200)
+        except Exception as e:
+            return Response({"error": "Something went wrong"}, status=400)
