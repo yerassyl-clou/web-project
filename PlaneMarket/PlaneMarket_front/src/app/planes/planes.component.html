@@ -1,0 +1,6 @@
+<h2>Planes</h2>
+<ul>
+  <li *ngFor="let plane of planes">
+    {{ plane.name }} - {{ plane.manufacturer.name }} - ${{ plane.price }}
+  </li>
+</ul>

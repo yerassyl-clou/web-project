@@ -1,0 +1,11 @@
+<nav>
+  <a routerLink="/">Home</a>
+  <a routerLink="/manufacturers">Manufacturers</a>
+  <a routerLink="/planes">Planes</a>
+  <a routerLink="/orders">Orders</a>
+  <span *ngIf="auth.currentUser$ | async as user">
+    Welcome, {{ user }}!
+    <button (click)="logout()">Logout</button>
+  </span>
+  <a *ngIf="!(auth.currentUser$ | async)" routerLink="/login">Login</a>
+</nav>
