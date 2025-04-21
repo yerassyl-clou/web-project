@@ -20,6 +20,16 @@ export class AuthService {
     }
   }
 
+  public initCurrentUser(): void {
+    const token = this.getAccessToken();
+    if (token && !this.currentUserSubject.value) {
+      this.api.getCurrentUser().subscribe({
+        next: (user) => this.currentUserSubject.next(user.username),
+        error: () => {}, // Optional: handle errors
+      });
+    }
+  }
+
   login(username: string, password: string): Observable<void> {
     return new Observable<void>((observer) => {
       this.api.login({ username, password }).subscribe({
