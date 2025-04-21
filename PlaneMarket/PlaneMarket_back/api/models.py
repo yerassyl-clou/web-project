@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=255)
+    country = models.CharField(max_length=255, default='select')
     description = models.TextField()
     headquarters_city = models.CharField(max_length=255)
     headquarters_address = models.CharField(max_length=255)
@@ -20,6 +21,7 @@ class Plane(models.Model):
     description = models.TextField()
     price = models.IntegerField()
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+    image_url = models.URLField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.name
