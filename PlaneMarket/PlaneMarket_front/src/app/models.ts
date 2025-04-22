@@ -1,6 +1,7 @@
 export interface Manufacturer {
     id: number;
     name: string;
+    country: string;
     description: string;
     headquarters_city: string;
     headquarters_address: string;
