@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, RouterModule} from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { Plane } from '../models';
 import { ApiService } from '../api.service';
@@ -7,7 +7,7 @@ import { ApiService } from '../api.service';
 @Component({
   selector: 'app-plane-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './plane-detail.component.html',
   styleUrls: ['./plane-detail.component.css']
 })

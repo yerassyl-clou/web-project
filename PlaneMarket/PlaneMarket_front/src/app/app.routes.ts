@@ -7,13 +7,15 @@ import { OrdersComponent } from './orders/orders.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PlaneDetailComponent} from "./plane-detail/plane-detail.component";
+import {ManufacturerDetailComponent} from "./manufacturer-detail/manufacturer-detail.component";
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'manufacturers', component: ManufacturersComponent },
+    { path: 'manufacturers/:id', component: ManufacturerDetailComponent },
     { path: 'planes', component: PlanesComponent },
-  { path: 'planes/:id', component: PlaneDetailComponent },
+    { path: 'planes/:id', component: PlaneDetailComponent },
     { path: 'orders', component: OrdersComponent },
     { path: 'home', component: HomeComponent },
 ];
