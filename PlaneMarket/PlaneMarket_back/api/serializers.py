@@ -13,7 +13,7 @@ class PlaneSerializer(serializers.Serializer):
     name = serializers.CharField()
     description = serializers.CharField()
     price = serializers.IntegerField()
-    manufacturer = serializers.PrimaryKeyRelatedField(queryset=Manufacturer.objects.all())
+    manufacturer = ManufacturerSerializer()  # <-- Use ManufacturerSerializer here
     image_url = serializers.URLField(required=False, allow_blank=True, allow_null=True)
 
     def create(self, validated_data):

@@ -58,10 +58,6 @@ export class AuthService {
     this.currentUserSubject.next(null);  // Updates user state
   }
 
-  isAuthenticated(): boolean {
-    return !!this.getAccessToken();
-  }
-
   getAccessToken(): string | null {
     return localStorage.getItem(this.accessTokenKey);
   }
