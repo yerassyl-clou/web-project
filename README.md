@@ -2,7 +2,7 @@
 
 Plane Market 
 
-Plane selling/buying marketplace.
+Plane marketplace.
 
 
 
