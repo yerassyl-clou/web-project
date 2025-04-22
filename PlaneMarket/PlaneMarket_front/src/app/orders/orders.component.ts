@@ -13,10 +13,14 @@ import {FormsModule} from "@angular/forms";
 })
 export class OrdersComponent implements OnInit {
   orders: Order[] = [];
+  loadError = false;
 
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
-    this.api.getMyOrders().subscribe((data) => (this.orders = data));
+    this.api.getMyOrders().subscribe({
+      next: (data) => this.orders = data,
+      error: () => this.loadError = true
+    });
   }
 }

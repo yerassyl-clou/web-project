@@ -7,6 +7,9 @@
   <p><strong>Headquarters:</strong>
     {{ plane.manufacturer.headquarters_city || 'Not available' }},
     {{ plane.manufacturer.headquarters_address || 'Not available' }}
-  </p></div>
+  </p>
+
+  <button (click)="orderPlane()" class="order-button">Order This Plane</button>
+</div>
 
 <p *ngIf="!plane">Loading plane details...</p>

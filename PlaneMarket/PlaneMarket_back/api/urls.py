@@ -12,7 +12,7 @@ from .views import (
     create_order_for_authenticated_user,
     CustomTokenObtainPairView,  # Добавляем сюда логин
     LogoutView,  # Добавляем сюда логаут
-    CurrentUserView, my_orders  # Добавляем для получения информации о текущем пользователе
+    CurrentUserView, my_orders, RegisterView  # Добавляем для получения информации о текущем пользователе
 )
 
 urlpatterns = [
@@ -37,6 +37,8 @@ urlpatterns = [
     
     # Логаут: аннулирование refresh токена
     path('logout/', LogoutView.as_view(), name='logout'),
+
+    path('register/', RegisterView.as_view(), name='register'),
     
     # Информация о текущем пользователе
     path('current_user/', CurrentUserView.as_view(), name='current_user'),

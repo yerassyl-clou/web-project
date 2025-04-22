@@ -30,3 +30,10 @@ export interface Order {
     order_date: string;
     status: 'pending' | 'shipped' | 'delivered';
 }
+
+export interface RegisterData {
+  username: string;
+  password: string;
+  phone_number: string;
+  address: string;
+}

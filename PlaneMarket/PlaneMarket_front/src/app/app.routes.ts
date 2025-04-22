@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PlaneDetailComponent} from "./plane-detail/plane-detail.component";
 import {ManufacturerDetailComponent} from "./manufacturer-detail/manufacturer-detail.component";
+import {RegisterComponent} from "./register/register.component";
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,6 +19,7 @@ export const routes: Routes = [
     { path: 'planes/:id', component: PlaneDetailComponent },
     { path: 'orders', component: OrdersComponent },
     { path: 'home', component: HomeComponent },
+    { path: 'register', component: RegisterComponent }
 ];
 
 export class AppRoutingModule {}

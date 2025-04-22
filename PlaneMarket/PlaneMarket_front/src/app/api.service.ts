@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Manufacturer, Plane, Customer, Order } from './models';
+import {Manufacturer, Plane, Customer, Order, RegisterData} from './models';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -91,5 +91,9 @@ export class ApiService {
 
   getMyOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.baseUrl}/api/orders/my/`);
+  }
+
+  register(data: RegisterData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/register/`, data);
   }
 }

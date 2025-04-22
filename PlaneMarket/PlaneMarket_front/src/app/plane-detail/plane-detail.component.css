@@ -30,3 +30,19 @@
 .plane-detail p strong {
   color: #333;
 }
+
+.order-button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  display: block;
+}
+
+.order-button:hover {
+  background-color: #0056b3;
+}

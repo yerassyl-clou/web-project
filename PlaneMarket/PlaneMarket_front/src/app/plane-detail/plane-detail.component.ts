@@ -26,4 +26,15 @@ export class PlaneDetailComponent implements OnInit {
       }
     });
   }
+
+
+  orderPlane(): void {
+    if (this.plane) {
+      this.api.createOrderForUser(this.plane.id).subscribe({
+        next: (order) => alert('Order successfully created!'),
+        error: (err) => alert('Failed to create order.')
+      });
+    }
+  }
+
 }

@@ -1,5 +1,8 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+
 from .models import Manufacturer, Plane, Order, Customer
+from django.contrib.auth.models import User
 
 # Manufacturer Serializer
 class ManufacturerSerializer(serializers.ModelSerializer):
@@ -65,3 +68,26 @@ class CustomerSerializer(serializers.ModelSerializer):
 # Plane Search Serializer (for filtering by keyword)
 class PlaneSearchSerializer(serializers.Serializer):
     keyword = serializers.CharField(max_length=100)
+
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True)
+    phone_number = serializers.CharField()
+    address = serializers.CharField()
+
+    class Meta:
+        model = Customer
+        fields = ['username', 'password', 'phone_number', 'address']
+
+    def create(self, validated_data):
+        username = validated_data.pop('username')
+        password = validated_data.pop('password')
+
+        if User.objects.filter(username=username).exists():
+            raise ValidationError({"username": "This username is already taken."})
+
+        user = User.objects.create_user(username=username, password=password)
+        customer = Customer.objects.create(user=user, **validated_data)
+        return customer

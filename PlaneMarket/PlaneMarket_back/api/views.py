@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status, viewsets
 from rest_framework.views import APIView
@@ -7,7 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Manufacturer, Plane, Customer, Order
-from .serializers import ManufacturerSerializer, PlaneSerializer, OrderSerializer, CustomerSerializer
+from .serializers import ManufacturerSerializer, PlaneSerializer, OrderSerializer, CustomerSerializer, \
+    RegisterSerializer
 
 
 # Логин — получение JWT токенов
@@ -220,3 +222,15 @@ def create_order_for_authenticated_user(request):
     serializer = OrderSerializer(order)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                serializer.save()
+                return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
+            except IntegrityError:
+                return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
